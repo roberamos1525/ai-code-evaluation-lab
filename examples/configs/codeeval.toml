@@ -1,0 +1,16 @@
+# Example configuration. Use with `codeeval --config examples/configs/codeeval.toml ...`
+# or CODEEVAL_CONFIG=examples/configs/codeeval.toml. Relative paths are relative to this file.
+# Environment variables (CODEEVAL_*) override these values; CLI flags override both.
+[codeeval]
+home = "../../var"
+dataset_dirs = ["../datasets"]
+sandbox_backend = "local"
+timeout_s = 8.0
+memory_mb = 384
+max_output_bytes = 32768
+strictness = "standard"
+workers = 4
+allow_network_adapters = false
+log_level = "info"
+log_format = "text"
+max_concurrent_runs = 2
