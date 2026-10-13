@@ -1,0 +1,29 @@
+# NOTE: not run locally (Docker is not installed on the development machine).
+services:
+  codeeval:
+    build: .
+    image: ai-code-evaluation-lab:local
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      CODEEVAL_API_KEYS: ${CODEEVAL_API_KEYS:?set CODEEVAL_API_KEYS (>= 16 chars) before exposing the API}
+      CODEEVAL_STRICTNESS: standard
+      CODEEVAL_TIMEOUT_S: "10"
+      CODEEVAL_MEMORY_MB: "512"
+      CODEEVAL_MAX_CONCURRENT_RUNS: "2"
+      CODEEVAL_LOG_FORMAT: json
+    volumes:
+      - codeeval-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=256m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    mem_limit: 4g
+    restart: unless-stopped
+
+volumes:
+  codeeval-data:
